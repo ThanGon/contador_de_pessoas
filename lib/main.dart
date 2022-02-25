@@ -11,40 +11,62 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false, // Lembrar de como tirar do modo debug
       home: HomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({ Key? key }) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> { // Aqui se deve montar o código da página ou o código do estado
+int count = 0;
+
 
 void decrement() {
-  print('Decrementado');
+  if (count != 0) {
+      setState(() {
+    count--;
+  });
+  }
 }
 
 void increment() {
-  print('Incrementado');
+    setState(() {
+    count++;
+  });
 }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      body: Container( 
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/party.jpeg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         const Text(
           'Controle de entrada',
           style: TextStyle(
             fontSize: 40,
-            color: Colors.green,
+            color: Colors.blue,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(28),
+        Padding(
+          padding: const EdgeInsets.all(28),
           child: Text(
-            '0',
-            style: TextStyle(
+            count.toString(), 
+            style: const TextStyle(
               fontSize: 80,
-              color: Colors.green,
+              color: Colors.blue,
             )
           ),
         ),
@@ -66,7 +88,7 @@ void increment() {
             ),
             child: const Text('Saiu', style: TextStyle(
               fontSize: 26,
-              color: Colors.lightGreen,
+              color: Colors.yellow,
             )),
           ),
           const SizedBox(width: 32),
@@ -81,22 +103,26 @@ void increment() {
               ),
             ),
             child: const Text('Entrou', style: TextStyle(
-              color: Colors.lightGreen,
+              color: Colors.yellow,
               fontSize: 26,
             )),
           ),
         ]),
       ]),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.yellow,
         title: const Text('Oi Nathan!',
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.blue,
             )),
       ),
     );
   }
 }
+
+
+
 
 
 
