@@ -29,11 +29,9 @@ int count = 0;
 
 
 void decrement() {
-  if (count != 0) {
       setState(() {
     count--;
   });
-  }
 }
 
 void increment() {
@@ -41,6 +39,9 @@ void increment() {
     count++;
   });
 }
+
+bool get isEmpty => count == 0;
+bool get isFull => count == 20;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,9 @@ void increment() {
             ),
           ),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text(
-          'Controle de entrada',
-          style: TextStyle(
+        Text(
+          isFull ? 'Lotado' : 'Controle de entrada',
+          style: const TextStyle(
             fontSize: 40,
             color: Colors.blue,
           ),
@@ -64,9 +65,9 @@ void increment() {
           padding: const EdgeInsets.all(28),
           child: Text(
             count.toString(), 
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 80,
-              color: Colors.blue,
+              color: isFull ? Colors.red : Colors.blue,
             )
           ),
         ),
@@ -77,9 +78,9 @@ void increment() {
         Row (mainAxisAlignment: MainAxisAlignment.center,
           children: [
            TextButton(
-            onPressed: decrement,
+            onPressed: isEmpty ? null : decrement,
             style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: isEmpty ? Colors.blue.withOpacity(0.5) : Colors.blue,
               fixedSize: const Size(110,60),
               primary: Colors.white,
               shape: RoundedRectangleBorder(
@@ -93,9 +94,9 @@ void increment() {
           ),
           const SizedBox(width: 32),
             TextButton(
-            onPressed: increment,
+            onPressed: isFull ? null : increment,
             style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
+              backgroundColor: isFull ? Colors.blue.withOpacity(0.5) : Colors.blue, 
               fixedSize: const Size(110,60),
               primary: Colors.white,
               shape: RoundedRectangleBorder(
